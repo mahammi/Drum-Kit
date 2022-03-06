@@ -34,28 +34,26 @@ function drumAudio(keyVal){
     }
 }
 
-var drumButtons = document.querySelectorAll(".drum").length;
 
-//check clicks
-for(var i = 0; i < drumButtons; i++){
-    document.querySelectorAll(".drum")[i].addEventListener("click", function(){
-        var buttonInnerHTML = this.innerHTML;
-        drumAudio(buttonInnerHTML);
-        buttonAnimation(buttonInnerHTML);
-    })
-
-};
-
-//check keys
-document.addEventListener("keydown", function(e){
-   drumAudio(e.key);
-   buttonAnimation(e.key);
-});
 
 function buttonAnimation(currentKey){
-    var activeButton = document.querySelector("." + currentKey);
-    activeButton.classList.add("pressed");
+    var activeButton = $("." + currentKey);
+    $(activeButton).addClass("pressed");
     setTimeout(function(){
-        activeButton.classList.remove("pressed");
+        activeButton.removeClass("pressed");
     }, 100);
 }
+
+
+//check clicks
+$(".drum").click(function(){
+    var buttonInnerHTML = $(this).html;
+        drumAudio(buttonInnerHTML);
+        buttonAnimation(buttonInnerHTML);
+});
+
+//check keys
+$(document).keydown(function(e){
+    drumAudio(e.key);
+    buttonAnimation(e.key);
+});
